@@ -1,14 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Product as ProductEntity } from './product.entity';  // Asegúrate de que el nombre del archivo y la clase sean correctos
+import { Product as ProductEntity } from './product.entity';  
 import { CreateProductDto } from '../admin/dto/create-product.dto';
 import { UpdateProductDto } from '../admin/dto/update-product.dto';
 
 @Injectable()
 export class ProductsService {
   constructor(
-    @InjectRepository(ProductEntity)  // Aquí usamos el repositorio de TypeORM para ProductEntity
+    @InjectRepository(ProductEntity)  
     private readonly productRepo: Repository<ProductEntity>,
   ) {}
 
