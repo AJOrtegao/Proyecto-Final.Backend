@@ -29,7 +29,7 @@ import { PaymentsModule } from './payments/payments.module';
       },
     }),
 
-    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost:27017/Farmathony-DB'),
+    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost:27017/farmacia'),
 
     ProductsModule,
     OrdersModule,
