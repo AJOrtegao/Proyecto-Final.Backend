@@ -21,16 +21,15 @@ import { PaymentsModule } from './payments/payments.module';
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: parseInt(process.env.POSTGRES_PORT || '5432', 10),
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DB,
+      url: process.env.DATABASE_URL,
       entities: [Order, OrderItem, Product, User, Payment],
       synchronize: true,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     }),
 
-    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost:27017/farmacia'),
+    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost:27017/Farmathony-DB'),
 
     ProductsModule,
     OrdersModule,

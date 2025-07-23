@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProductModel } from '../products/product.model';
+import { ProductModel } from '../products/product.model'; // Asegúrate de que esto es un modelo de Mongoose
 import { CreateProductDto } from './dto/create-product.dto';
 import { Order } from '../orders/order.entity';
 
@@ -12,23 +12,49 @@ export class AdminService {
     private readonly orderRepository: Repository<Order>,
   ) {}
 
+  // Crear un producto
   async createProduct(createProductDto: CreateProductDto) {
-    const newProduct = new ProductModel(createProductDto);
-    return await newProduct.save();
+    try {
+      const newProduct = new ProductModel(createProductDto);
+      await newProduct.save(); // Usa Mongoose para guardar el producto
+      return newProduct;
+    } catch (error) {
+      console.error('Error al crear el producto:', error);
+      throw new Error('Error al crear el producto');
+    }
   }
 
+  // Actualizar un producto
   async updateProduct(id: string, updateProductDto: CreateProductDto) {
-    return await ProductModel.findByIdAndUpdate(id, updateProductDto, { new: true });
+    try {
+      return await ProductModel.findByIdAndUpdate(id, updateProductDto, { new: true });
+    } catch (error) {
+      console.error('Error al actualizar el producto:', error);
+      throw new Error('Error al actualizar el producto');
+    }
   }
 
+  // Eliminar un producto
   async deleteProduct(id: string) {
-    return await ProductModel.findByIdAndDelete(id);
+    try {
+      return await ProductModel.findByIdAndDelete(id);
+    } catch (error) {
+      console.error('Error al eliminar el producto:', error);
+      throw new Error('Error al eliminar el producto');
+    }
   }
 
+  // Obtener todos los productos
   async getAllProducts() {
-    return await ProductModel.find();
+    try {
+      return await ProductModel.find();
+    } catch (error) {
+      console.error('Error al obtener productos:', error);
+      throw new Error('Error al obtener productos');
+    }
   }
 
+  // Obtener todas las órdenes
   async getOrders() {
     return await this.orderRepository.find();
   }
